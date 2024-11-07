@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
 Author: Gadoskey
 Description: This module contains a function `filter_datum`
