@@ -12,6 +12,6 @@ from typing import List
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     for f in fields:
-        r = re.sub(f'{f}=.*?{separator}',
-                         f'{f}={redaction}{separator}', message)
+        r = re.sub(
+                f'{f}=.*?{separator}', f'{f}={redaction}{separator}', message)
     return r
