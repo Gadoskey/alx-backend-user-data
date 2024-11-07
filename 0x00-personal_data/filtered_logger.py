@@ -11,8 +11,8 @@ from typing import List
 
 def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
-    # T
+    # Function filter_datum that returns the log message obfuscated
     for f in fields:
-        message = re.sub(f'{f}=.*?{separator}',
-                f'{f}={redaction}{separator}', message)
-    return message
+        msg = re.sub(
+                f'{f}=.*?{separator}', f'{f}={redaction}{separator}', message)
+    return msg
