@@ -11,6 +11,4 @@ from typing import List
 
 def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
-    # Function filter_datum that returns the log message obfuscated
-    return re.sub(r'(' + '|'.join([f'{field}=[^;]*' for field in fields]) + ')',
-                  lambda m: f"{m.group(0).split('=')[0]}={redaction}", message)
+    return re.sub(r'(' + '|'.join([f'{field}=[^;]*' for field in fields]) + ')', lambda m: f"{m.group(0).split('=')[0]}={redaction}", message)
