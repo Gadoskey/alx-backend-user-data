@@ -7,14 +7,17 @@ Description: Just playing around with bycrypt looooolll
 
 import bcrypt
 
-# Password to hash
+#The Password to hash and printing it out
 password = "reecejames"
+print(password)
 
-# Generate the salt and hash the password
+# Generate the salt, hash the passworda and print it out as well
 salt = bcrypt.gensalt()
 hashed_password = bcrypt.hashpw(password.encode(), salt)
+print(hash_password)
 
-# Save the hashed password to a file
+
+# Save the hashed password to hashed_password.txt
 with open("hashed_password.txt", "wb") as f:
     f.write(hashed_password)
 
