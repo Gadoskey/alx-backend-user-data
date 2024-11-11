@@ -19,3 +19,4 @@ with open("hashed_password.txt", "wb") as f:
     f.write(hashed_password)
 
 print("Password has been hashed and stored in 'hashed_password.txt'.")
+
