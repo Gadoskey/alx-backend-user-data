@@ -21,4 +21,4 @@ with open("hashed_password.txt", "wb") as f:
 print("Password has been hashed and stored in 'hashed_password.txt'.")
 
 is_correct = bcrypt.checkpw(password.encode(), hashed_password)
-print("Checking if password is correct", is_correct)
+print("Checking if password is correct: ", is_correct)
