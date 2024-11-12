@@ -8,6 +8,12 @@ class Auth:
     """ Class Auth """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ Method that determines if authentication is required """
+        if path is None:
+          return True
+        elif excluded_paths is None or len(excluded_paths) == 0:
+          return True
+        elif path in excluded_paths:
+          return False
         return False
 
     def authorization_header(self, request=None) -> str:
