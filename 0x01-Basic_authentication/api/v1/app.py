@@ -28,16 +28,17 @@ def before_request():
     if auth is None:
         return
     # List of paths that don't require authorization
-    excluded = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
-    
+    excluded = [
+            '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+
     # Check if the request path requires authentication
     if not auth.require_auth(request.path, excluded):
         return
-    
+
     # Check if authorization header is provided
     if auth.authorization_header(request) is None:
         abort(401)  # Unauthorized
-    
+
     # Check if a valid user is returned
     if auth.current_user(request) is None:
         abort(403)  # Forbidden
