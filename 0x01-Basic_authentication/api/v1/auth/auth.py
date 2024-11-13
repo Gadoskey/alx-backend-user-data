@@ -20,7 +20,7 @@ class Auth:
             path += '/'
         # Check each excluded path
         for excluded_path in excluded_paths:
-            # If the excluded path ends with '*', use fnmatch for pattern matching
+            # If the excluded path ends with '*', use fnmatch
             if excluded_path.endswith('*'):
                 if fnmatch.fnmatch(path, excluded_path):
                     return False
