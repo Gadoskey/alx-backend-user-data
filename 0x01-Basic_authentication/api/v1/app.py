@@ -12,6 +12,35 @@ import os
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+auth = None
+
+
+# Set up auth based on environment variable
+AUTH_TYPE = getenv('AUTH_TYPE')
+if AUTH_TYPE == 'auth':
+    from api.v1.auth.auth import Auth
+    auth = Auth()
+
+
+@app.before_request
+def before_request():
+    """Filters and validates requests before processing them"""
+    if auth is None:
+        return
+    # List of paths that don't require authorization
+    excluded = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    
+    # Check if the request path requires authentication
+    if not auth.require_auth(request.path, excluded):
+        return
+    
+    # Check if authorization header is provided
+    if auth.authorization_header(request) is None:
+        abort(401)  # Unauthorized
+    
+    # Check if a valid user is returned
+    if auth.current_user(request) is None:
+        abort(403)  # Forbidden
 
 
 @app.errorhandler(404)
