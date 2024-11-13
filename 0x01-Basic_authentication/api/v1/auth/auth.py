@@ -2,6 +2,7 @@
 """auth.py"""
 from flask import request
 from typing import List, TypeVar
+import fnmatch
 
 
 class Auth:
@@ -17,9 +18,15 @@ class Auth:
         # Normalize path by adding a trailing slash if it's not present
         if not path.endswith('/'):
             path += '/'
-        # Return False if path is in excluded_paths
-        if path in excluded_paths:
-            return False
+        # Check each excluded path
+        for excluded_path in excluded_paths:
+            # If the excluded path ends with '*', use fnmatch for pattern matching
+            if excluded_path.endswith('*'):
+                if fnmatch.fnmatch(path, excluded_path):
+                    return False
+            # Otherwise, check for exact match
+            elif path == excluded_path:
+                return False
         # Otherwise, return True
         return True
 
