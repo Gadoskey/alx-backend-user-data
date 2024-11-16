@@ -27,7 +27,7 @@ else:
 
 @app.before_request
 def before_request():
-    """Filters and validates requests before processing them"""    
+    """Filters and validates requests before processing them"""
     if auth is None:
         return
     # List of paths that don't require authorization
@@ -45,7 +45,7 @@ def before_request():
     # Check if a valid user is returned
     if auth.current_user(request) is None:
         abort(403)  # Forbidden
-        
+
     request.current_user = auth.current_user(request)
 
 
