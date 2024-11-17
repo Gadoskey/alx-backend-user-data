@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""session_auth.py"""
+"""session_auth.py
+  Author: Yusuf Mustapha Opeyemi
+"""
 
 import base64
 from typing import Tuple, TypeVar
@@ -30,18 +32,17 @@ class SessionAuth(Auth):
 
         return session_id
 
-
     def user_id_for_session_id(self, session_id: str = None) -> str:
-      """
-      Returns a User ID based on a Session ID.
+        """
+        Returns a User ID based on a Session ID.
 
-      Args:
-          session_id (str): The session ID created for the user.
+        Args:
+            session_id (str): The session ID created for the user.
 
-      Returns:
-          str: User ID based on a Session ID.
-      """
-      if session_id is None or not isinstance(session_id, str):
-          return None
+        Returns:
+            str: User ID based on a Session ID.
+        """
+        if session_id is None or not isinstance(session_id, str):
+            return None
 
-      return self.user_id_by_session_id.get(session_id)
+        return self.user_id_by_session_id.get(session_id)
