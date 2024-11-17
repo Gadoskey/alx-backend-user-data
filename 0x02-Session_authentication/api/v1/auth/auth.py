@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""auth.py"""
+"""auth.py
+Author: Yusuf Mustapha Opeyemi
+"""
 from flask import request
 from typing import List, TypeVar
 import fnmatch
@@ -39,3 +41,21 @@ class Auth:
     def current_user(self, request=None) -> TypeVar('User'):
         """ Method that returns the current user """
         return None
+
+    def session_cookie(self, request=None):
+        """
+        Returns a cookie value from a request.
+
+        Args:
+            request (str): request
+
+        Returns:
+            str: The value of the cookie named _my_session_id from request
+            the name of the cookie is defined by the environment variable:
+            SESSION_NAME
+        """
+        if request is None:
+            return None
+        cookie_name = os.getenv('SESSION_NAME', '_my_session_id')
+
+        return request.cookies.get(cookie_name)
