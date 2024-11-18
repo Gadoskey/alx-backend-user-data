@@ -46,7 +46,8 @@ def before_request():
         return
 
     # Check if authorization header is provided
-    if auth.authorization_header(request) is None and auth.session_cookie(request) is None:
+    if auth.authorization_header(
+        request) is None and auth.session_cookie(request) is None:
         abort(401)  # Unauthorized
 
     # Check if a valid user is returned
@@ -55,7 +56,6 @@ def before_request():
         abort(403)
 
     request.current_user = current_user
-
 
 
 @app.errorhandler(404)
