@@ -77,7 +77,7 @@ class SessionAuth(Auth):
             request: The Flask request object.
 
         Returns:
-            bool: True if the session was successfully destroyed, otherwise False.
+            bool: True if the session was destroyed, otherwise False.
         """
         if request is None:
             return False

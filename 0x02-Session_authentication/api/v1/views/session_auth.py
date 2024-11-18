@@ -58,7 +58,9 @@ def session_auth_login():
 
     return response
 
-@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+
+@app_views.route(
+  '/auth_session/logout', methods=['DELETE'], strict_slashes=False)
 def session_auth_logout():
     """
     Handles the DELETE /auth_session/logout route for logging out.
