@@ -35,14 +35,15 @@ def before_request():
         return
     # List of paths that don't require authorization
     excluded = [
-            '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+            '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/',
+            '/api/v1/auth_session/login']
 
     # Check if the request path requires authentication
     if not auth.require_auth(request.path, excluded):
         return
 
     # Check if authorization header is provided
-    if auth.authorization_header(request) is None:
+    if auth.authorization_header(request) is None and auth.session_cookie(request) is None:
         abort(401)  # Unauthorized
 
     # Check if a valid user is returned
