@@ -35,8 +35,11 @@ def before_request():
         return
     # List of paths that don't require authorization
     excluded = [
-            '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/',
-            '/api/v1/auth_session/login']
+            '/api/v1/status/',
+            '/api/v1/unauthorized/',
+            '/api/v1/forbidden/',
+            '/api/v1/auth_session/login'
+            ]
 
     # Check if the request path requires authentication
     if not auth.require_auth(request.path, excluded):
@@ -47,10 +50,12 @@ def before_request():
         abort(401)  # Unauthorized
 
     # Check if a valid user is returned
-    if auth.current_user(request) is None:
-        abort(403)  # Forbidden
+    current_user = auth.current_user(request)
+    if current_user is None:
+        abort(403)
 
-    request.current_user = auth.current_user(request)
+    request.current_user = current_user
+
 
 
 @app.errorhandler(404)
