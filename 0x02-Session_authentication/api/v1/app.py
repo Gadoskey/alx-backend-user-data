@@ -24,6 +24,10 @@ if auth_type == 'basic_auth':
     auth = BasicAuth()
 elif auth_type == 'session_auth':
     auth = SessionAuth()
+elif auth_type == 'session_exp_auth':
+    auth = SessionExpAuth()
+elif auth_type == 'session_db_auth':
+    auth = SessionDBAuth()
 else:
     auth = Auth()
 
