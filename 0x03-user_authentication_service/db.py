@@ -61,11 +61,11 @@ class DB:
         valid = ['email', 'hashed_password', 'session_id', 'reset_token']
         if not all(col in valid for col in kwargs.keys()):
             raise InvalidRequestError
-        
+
         # Query the users table based on the provided keyword arguments
         user = self._session.query(User).filter_by(**kwargs).first()
 
         if user is None:
             raise NoResultFound
-        
+
         return user
