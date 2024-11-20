@@ -47,7 +47,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def DB.find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs):
         try:
             # Ensure only valid column names are passed as filter arguments
             valid = ['email', 'hashed_password', 'session_id', 'reset_token']
