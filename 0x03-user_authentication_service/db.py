@@ -7,7 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from user import Base, User
-from sqlalchemy.exc import NoResultFound, InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound, InvalidRequestError
 
 
 class DB:
@@ -57,21 +57,15 @@ class DB:
         Returns:
             User: The user found or raise NoResultFound.
         """
-        try:
-            # Ensure only valid column names are passed as filter arguments
-            valid = ['email', 'hashed_password', 'session_id', 'reset_token']
-            if not all(col in valid for col in kwargs.keys()):
-                raise InvalidRequestError
-            
-            # Query the users table based on the provided keyword arguments
-            user = self._session.query(User).filter_by(**kwargs).first()
+        # Ensure only valid column names are passed as filter arguments
+        valid = ['email', 'hashed_password', 'session_id', 'reset_token']
+        if not all(col in valid for col in kwargs.keys()):
+            raise InvalidRequestError
+        
+        # Query the users table based on the provided keyword arguments
+        user = self._session.query(User).filter_by(**kwargs).first()
 
-            if user is None:
-                raise NoResultFound
-            
-            return user
-
-        except InvalidRequestError:
-            raise
-        except NoResultFound:
-            raise
+        if user is None:
+            raise NoResultFound
+        
+        return user
