@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
   Author: Yusuf Mustapha Opeyemi
   Desc: A SQLAlchemy model named User for a database table named users.
