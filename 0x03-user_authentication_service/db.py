@@ -48,6 +48,15 @@ class DB:
         return new_user
 
     def find_user_by(self, **kwargs):
+        """
+        Finds a user in the database.
+
+        Args:
+            **kwargs: Keyword arguments.
+
+        Returns:
+            User: The user found or raise NoResultFound.
+        """
         try:
             # Ensure only valid column names are passed as filter arguments
             valid = ['email', 'hashed_password', 'session_id', 'reset_token']
