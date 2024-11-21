@@ -72,9 +72,9 @@ class Auth:
         try:
             # find the user by email
             user = self._db.find_user_by(email=email)
-            
             # Verify the password against the hashed password
-            if bcrypt.checkpw(password.encode('utf-8'), user.hashed_password.encode('utf-8')):
+            if bcrypt.checkpw(
+              password.encode('utf-8'), user.hashed_password.encode('utf-8')):
                 return True
         except Exception:
             # Handle cases where the user does not exist or other errors
