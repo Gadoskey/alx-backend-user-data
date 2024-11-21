@@ -61,12 +61,12 @@ class DB:
         # Ensure only valid column names are passed as filter arguments
         valid = ['email', 'hashed_password', 'session_id', 'reset_token']
         if not all(col in valid for col in kwargs.keys()):
-            raise InvalidRequestError("Invalid Column")
+            raise InvalidRequestError
 
         # Query the users table based on the provided keyword arguments
         user = self._session.query(User).filter_by(**kwargs).first()
 
         if user is None:
-            raise NoResultFound("No User Found")
+            raise NoResultFound
 
         return user
