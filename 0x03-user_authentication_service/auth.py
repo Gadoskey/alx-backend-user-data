@@ -30,7 +30,7 @@ class Auth:
 
     def __init__(self):
         self._db = DB()
-    
+
     def register_user(self, email: str, password: str) -> User:
         """
         Registers a new user with the given email and password.
@@ -54,5 +54,6 @@ class Auth:
             # If NoResultFound is raised, the user does not exist
             hashed_password = _hash_password(password)
             # Add the user to the database
-            new_user = self._db.add_user(email, hashed_password.decode("utf-8"))
+            new_user = self._db.add_user(
+              email, hashed_password.decode("utf-8"))
             return new_user
