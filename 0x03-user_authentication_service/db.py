@@ -9,7 +9,6 @@ from sqlalchemy.orm.session import Session
 from user import Base, User
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
-from typing import Any
 
 
 class DB:
@@ -74,3 +73,29 @@ class DB:
             raise NoResultFound
 
         return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        Updates a user's attributes in the database.
+
+        Args:
+            user_id (int): The ID of the user to update.
+            **kwargs: Arbitrary keyword arguments representing the attributes to update.
+
+        Raises:
+            ValueError: If an argument does not correspond to a valid user attribute.
+        """
+        user = self.find_user_by(id=user_id)
+
+        # Ensure only valid attributes are updated
+        valid_attributes = User.__table__.columns.keys()
+        for key in kwargs.keys():
+            if key not in valid_attributes:
+                raise ValueError(f"Invalid attribute: {key}")
+
+        # Update user's attributes
+        for key, value in kwargs.items():
+            setattr(user, key, value)
+
+        # Commit the changes to the database
+        self._session.commit()
