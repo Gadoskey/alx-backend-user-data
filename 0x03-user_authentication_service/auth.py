@@ -7,6 +7,7 @@ from typing import List, Union
 from user import Base, User
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
+from uuid import uuid4
 
 
 def _hash_password(password: str) -> bytes:
@@ -81,3 +82,13 @@ class Auth:
             pass
 
         return False
+      
+    def _generate_uuid(self) -> str:
+        """
+        Generates a new unique UUID.
+
+        Returns:
+            str: A string representation of the UUID.
+        """
+        new_uuid = uuid4()  # Generate a random UUID
+        return str(new_uuid)
