@@ -2,7 +2,7 @@
 """ Flask App
     Author: Yusuf Mustapha Opeyemi
 """
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from auth import Auth
 
 
@@ -17,14 +17,21 @@ def homepage():
 
 
 @app.route('/users', methods=['POST'])
-def users(email, password):
+def users():
+    """
+    POST /users
+    Registers a new user.
+
+    Returns:
+        JSON response with appropriate message and status code.
+    """
+    email = request.form.get("email")
+    password = request.form.get("password")
     try:
         AUTH.register_user(email, password)
-        return jsonify({"email": "<registered email>", "message": "user created"})
+        return jsonify({"email": email, "message": "user created"})
     except ValueError:
-        return jsonify({"message": "email already registered"})
-
-    return 400 
+        return jsonify({"message": "email already registered"}), 400
 
 
 if __name__ == "__main__":
