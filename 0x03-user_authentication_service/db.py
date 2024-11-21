@@ -59,9 +59,11 @@ class DB:
         Returns:
             User: The user found or raise NoResultFound.
         """
+        if not kwargs:
+            raise InvalidRequestError
         # Ensure only valid column names are passed as filter arguments
-        valid = ['email', 'hashed_password', 'session_id', 'reset_token']
-        if not all(col in valid for col in kwargs.keys()):
+        valid = ['id', 'email', 'hashed_password', 'session_id', 'reset_token']
+        if any(col in valid for col in kwargs.keys()):
             raise InvalidRequestError
 
         # Query the users table based on the provided keyword arguments
