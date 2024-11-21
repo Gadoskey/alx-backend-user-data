@@ -82,7 +82,7 @@ class Auth:
             pass
 
         return False
-      
+
     def _generate_uuid(self) -> str:
         """
         Generates a new unique UUID.
