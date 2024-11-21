@@ -93,3 +93,20 @@ class Auth:
             pass
 
         return False
+
+    def create_session(self, email: str) -> str:
+        """
+        Validates a user's login credentials.
+
+        Args:
+            email (str): The user's email.
+            password (str): The user's plaintext password.
+
+        Returns:
+            bool: True if login is valid, False otherwise.
+        """
+        # find the user by email
+        user = self._db.find_user_by(email=email)
+        session_id = _generate_uuid()
+        self._db.update_user(user=user, session_id=session_id)
+        return session_id
