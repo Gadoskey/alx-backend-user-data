@@ -80,17 +80,17 @@ class DB:
 
         Args:
             user_id (int): The ID of the user to update.
-            **kwargs: Arbitrary keyword arguments representing the attributes to update.
+            **kwargs: Arbitrary keyword arguments.
 
         Raises:
-            ValueError: If an argument does not correspond to a valid user attribute.
+            ValueError: If an argument is not valid.
         """
         user = self.find_user_by(id=user_id)
 
         # Ensure only valid attributes are updated
-        valid_attributes = User.__table__.columns.keys()
+        valid_columns = User.__table__.columns.keys()
         for key in kwargs.keys():
-            if key not in valid_attributes:
+            if key not in valid_columns:
                 raise ValueError(f"Invalid attribute: {key}")
 
         # Update user's attributes
