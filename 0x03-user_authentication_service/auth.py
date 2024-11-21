@@ -53,6 +53,6 @@ class Auth:
             # If NoResultFound is raised, the user does not exist
             hashed_password = _hash_password(password)
             # Add the user to the database
-            new_user = self._db.add_user(email, hashed_password.decode('utf-8'))
+            new_user = self._db.add_user(email, hashed_password)
         
         return new_user
