@@ -26,14 +26,14 @@ def _hash_password(password: str) -> bytes:
 
 
 def _generate_uuid(self) -> str:
-        """
-        Generates a new unique UUID.
+    """
+    Generates a new unique UUID.
 
-        Returns:
-            str: A string representation of the UUID.
-        """
-        new_uuid = uuid4()  # Generate a random UUID
-        return str(new_uuid)
+    Returns:
+        str: A string representation of the UUID.
+    """
+    new_uuid = uuid4()  # Generate a random UUID
+    return str(new_uuid)
 
 
 class Auth:
