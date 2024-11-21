@@ -60,21 +60,24 @@ class Auth:
 
     def valid_login(self, email: str, password: str) -> bool:
         """
-        Registers a new user with the given email and password.
+        Validates a user's login credentials.
 
         Args:
             email (str): The user's email.
             password (str): The user's plaintext password.
 
         Returns:
-            User: The created User object.
-
-        Raises:
-            ValueError: If the email is already associated with a user.
+            bool: True if login is valid, False otherwise.
         """
-        # Check if the user already exists
-        user = self._db.find_user_by(email=email)
-        if user:
-            if bcrypt.checkpw(password, user.password):
+        try:
+            # find the user by email
+            user = self._db.find_user_by(email=email)
+            
+            # Verify the password against the hashed password
+            if bcrypt.checkpw(password.encode('utf-8'), user.hashed_password.encode('utf-8')):
                 return True
+        except Exception:
+            # Handle cases where the user does not exist or other errors
+            pass
+
         return False
