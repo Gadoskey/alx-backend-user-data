@@ -115,7 +115,7 @@ class Auth:
         Creates a new session for a user.
 
         Args:
-            session_id (str): The session_id used to find the corresponding user.
+            session_id (str): The session_id used to find the user.
 
         Returns:
             str: The user found or None if not found.
