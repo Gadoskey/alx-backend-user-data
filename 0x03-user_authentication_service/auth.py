@@ -112,7 +112,7 @@ class Auth:
 
     def get_user_from_session_id(self, session_id: str) -> str:
         """
-        Creates a new session for a user.
+        Finds a user with its session_id.
 
         Args:
             session_id (str): The session_id used to find the user.
@@ -129,3 +129,17 @@ class Auth:
         except NoResultFound:
             # If NoResultFound is raised, the user does not exist
             return None
+
+    def destroy_session(self, user_id: str) -> None:
+        """
+        Updates a user's session_id to none.
+
+        Args:
+            user_id (str): The user_id used to find the user.
+
+        Returns:
+            str: None.
+        """
+        # update user's session_id to None
+        DB.update_user(user_id, session_id=None)
+        return None
