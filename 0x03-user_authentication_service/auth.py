@@ -141,5 +141,5 @@ class Auth:
             str: None.
         """
         # update user's session_id to None
-        DB.update_user(user_id, session_id=None)
+        DB.update_user(user_id, session_id:None)
         return None
