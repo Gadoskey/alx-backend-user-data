@@ -2,8 +2,10 @@
 """ Flask App
     Author: Yusuf Mustapha Opeyemi
 """
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
+from db import DB
+from sqlalchemy.orm.exc import NoResultFound
 
 
 AUTH = Auth()
@@ -53,6 +55,23 @@ def login() -> str:
     response = jsonify({"email": email, "message": "logged in"})
     response.set_cookie("session_id", session_id)
     return response
+
+@app.route('/sessions', methods=['DELETE'])
+def logout():
+    """
+    DELETE /sessions
+    Logout a user.
+
+    Returns:
+        JSON response with appropriate message and status code.
+    """
+    session_id = request.form.get("session_id")
+    try:
+        user = DB.find_user_by(session_id=session_id)
+        Auth.destroy_session(user.id)
+        return redirect(homepage)
+    except NoResultFound:
+        abort(403)
 
 
 if __name__ == "__main__":
