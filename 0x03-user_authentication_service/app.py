@@ -17,7 +17,7 @@ def homepage():
 
 
 @app.route('/users', methods=['POST'])
-def users():
+def users() -> str:
     """
     POST /users
     Registers a new user.
@@ -35,7 +35,7 @@ def users():
 
 
 @app.route('/sessions', methods=['POST'])
-def login():
+def login() -> str:
     """
     POST /sessions
     Login a user.
