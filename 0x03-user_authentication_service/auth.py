@@ -181,6 +181,6 @@ class Auth:
             # Hash the password
             hashed_password = _hash_password(password)
             user.hashed_password = hashed_password
-            user.reset_toen = None
+            user.reset_token = None
         except Exception:
             raise ValueError
