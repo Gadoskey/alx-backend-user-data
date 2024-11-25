@@ -145,7 +145,7 @@ class Auth:
 
     def get_reset_password_token(self, email: str) -> str:
         """
-        Get's a reset password toen.
+        Get's a reset password token.
 
         Args:
             email (str): The email used to find the user.
@@ -161,5 +161,26 @@ class Auth:
             # Update the user's reset_token with the token generated
             user.reset_token = token
             return token
+        except Exception:
+            raise ValueError
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """
+        Update's a user's password.
+
+        Args:
+            reset_token (str): The reset_token used to find the user.
+            password (str): The password to be reset.
+
+        Returns:
+            None.
+        """
+        try:
+            # Find the user with its reset_token
+            user = self._db.find_user_by(reset_token=reset_token)
+            # Hash the password
+            hashed_password = _hash_password(password)
+            user.hashed_password = hashed_password
+            user.reset_toen = None
         except Exception:
             raise ValueError
