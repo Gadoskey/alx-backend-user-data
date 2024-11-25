@@ -132,10 +132,11 @@ def update_password() -> str:
     Returns:
         JSON response with appropriate message and status code.
     """
-    email = request.form.get("email")
-    reset_token = request.form.get("reset_token")
-    new_password = request.form.get("new_password")
-    if not email or not reset_token or not new_password:
+    try:
+        email = request.form['email']
+        reset_token = request.form['reset_token']
+        new_password = request.form['new_password']
+    except KeyError:
         abort(400)
     try:
         AUTH.update_password(reset_token, new_password)
