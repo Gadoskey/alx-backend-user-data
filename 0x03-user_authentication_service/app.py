@@ -131,11 +131,16 @@ def update_password():
     if not email or not reset_token or not new_password:
         abort(403)
     try:
-        # Use the provided reset_token to update the password
+        user = AUTH._db.find_user_by(email=email)
+        if user.reset_token != reset_token:
+            abort(403)
         AUTH.update_password(reset_token, new_password)
         return jsonify({"email": email, "message": "Password updated"}), 200
+    except NoResultFound:
+        abort(403)
     except ValueError:
         abort(403)
+
 
 
 if __name__ == "__main__":
