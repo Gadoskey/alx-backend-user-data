@@ -119,7 +119,7 @@ def get_reset_password_token():
 @app.route('/reset_password', methods=['PUT'])
 def update_password():
     """
-    POST /reset_password
+    PUT /reset_password
     Reset a user's password.
 
     Returns:
