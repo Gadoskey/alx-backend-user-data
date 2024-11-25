@@ -161,5 +161,5 @@ class Auth:
             # Update the user's reset_token with the token generated
             user.reset_token = token
             return token
-        except ValueError:
-            raise
+        except Exception:
+            raise ValueError
