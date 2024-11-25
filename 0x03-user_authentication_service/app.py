@@ -56,6 +56,7 @@ def login() -> str:
     response.set_cookie("session_id", session_id)
     return response
 
+
 @app.route('/sessions', methods=['DELETE'])
 def logout():
     """
@@ -65,13 +66,16 @@ def logout():
     Returns:
         JSON response with appropriate message and status code.
     """
-    session_id = request.form.get("session_id")
+    session_id = request.cookies.get("session_id")
+    if not session_id:
+        abort(403)
     try:
-        user = DB.find_user_by(session_id=session_id)
-        Auth.destroy_session(user.id)
+        user = AUTH._db.find_user_by(session_id=session_id)
+        AUTH.destroy_session(user.id)
         return redirect(homepage)
     except NoResultFound:
         abort(403)
+
 
 
 if __name__ == "__main__":
