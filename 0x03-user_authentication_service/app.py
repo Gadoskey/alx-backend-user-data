@@ -80,7 +80,7 @@ def logout():
 @app.route('/profile', methods=['GET'])
 def profile():
     """
-    DELETE /profile
+    GET /profile
     Display a user.
 
     Returns:
