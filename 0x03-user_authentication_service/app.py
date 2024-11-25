@@ -77,5 +77,25 @@ def logout():
         abort(403)
 
 
+@app.route('/profile', methods=['GET'])
+def profile():
+    """
+    DELETE /profile
+    Display a user.
+
+    Returns:
+        JSON response with appropriate message and status code.
+    """
+    session_id = request.cookies.get("session_id")
+    if not session_id:
+        abort(403)
+    try:
+        user = AUTH._db.find_user_by(session_id=session_id)
+        email = (user.email)
+        return jsonify({"email": email}), 200
+    except NoResultFound:
+        abort(403)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
