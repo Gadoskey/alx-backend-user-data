@@ -162,4 +162,4 @@ class Auth:
             user.reset_token = token
             return token
         except ValueError:
-            raise 
+            raise
